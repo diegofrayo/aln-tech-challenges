@@ -1,4 +1,5 @@
 import React from "react";
+
 import { useFruitsStore } from "../context";
 
 export default function List() {

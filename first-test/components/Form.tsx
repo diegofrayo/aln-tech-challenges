@@ -1,5 +1,5 @@
 import React from "react";
-import Head from "next/head";
+
 import { useFruitsStore } from "../context";
 
 export default function Form() {
@@ -18,12 +18,12 @@ export default function Form() {
     <div className="tw-flex tw-justify-between tw-border-2 tw-border-black">
       <input
         type="text"
-        className="tw-flex-1 tw-border-r-2 tw-border-black"
+        className="tw-flex-1 tw-border-r-2 tw-border-black tw-p-2"
         value={inputValue}
         onChange={onChangeHandler}
       />
       <button
-        className="tw-flex-shrink-0 tw-text-lg tw-px-2"
+        className="tw-flex-shrink-0 tw-text-lg tw-w-10"
         onClick={onClickHandler}
       >
         +

@@ -1,4 +1,5 @@
 import React from "react";
+
 import { useFruitsStore } from "../context";
 
 export default function Slogan() {
@@ -9,7 +10,7 @@ export default function Slogan() {
       return fruits[0];
     }
 
-    return `${fruits.slice(0, fruits.length - 1).join(",")} and ${fruits.slice(
+    return `${fruits.slice(0, fruits.length - 1).join(", ")} and ${fruits.slice(
       fruits.length - 1
     )}`;
   }
