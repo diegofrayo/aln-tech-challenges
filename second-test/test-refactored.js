@@ -1,60 +1,68 @@
-// Es lo mismo que el archivo test, solo le añadí unos console.logs
-// para que sea mas facil ver los resultados de los metodos
+// Codigo refactorizado para mi uso personal, no para que sea evaluado
 
 async function main() {
   // ### Exercise 1 ###
 
   function findMissing(input) {
-    let missing = 0;
+    let total1 = 0;
+    let total2 = 0;
 
-    for (let index = 1; index <= 9; index++) {
-      if (input.includes(index)) {
-        continue;
-      } else {
-        missing = index;
-      }
+    for (let index = 0; index <= input.length; index++) {
+      total1 += input[index] || 0;
+      total2 += index + 1;
     }
 
-    return missing;
+    return total2 - total1;
+
+    /*
+    // Another option
+    let totalExpected = 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9;
+    let totalFromInput = 0;
+
+    for (let index = 0; index < input.length; index++) {
+      totalFromInput += input[index];
+    }
+
+    return totalExpected - totalFromInput;
+    */
   }
 
   console.log("### Exercise 1 ###");
-  console.log(findMissing([8, 2, 3, 6, 4, 7, 1, 5]));
+  console.log(findMissing([8, 2, 3, 6, 4, 7, 1, 9]));
   console.log("");
 
   // ### Exercise 2 ###
 
-  const cache = {};
+  await (async () => {
+    const cache = {};
 
-  async function fetch(url) {
-    if (cache[url] !== undefined) {
-      console.log("fetched from cache", url);
+    async function fetch(url) {
+      if (url in cache) {
+        console.log("Fetching from cache...", url);
+        return cache[url];
+      }
+
+      console.log("Launching a request...", url);
+      cache[url] = await Promise.resolve(url);
+
       return cache[url];
     }
 
-    console.log("launching request...", url);
-    cache[url] = await makeRequest();
+    async function makeRequests() {
+      console.log("### Exercise 2 ###");
+      await fetch("/user");
+      await fetch("/user/123");
+      await fetch("/user");
+      console.log("");
+    }
 
-    return cache[url];
-  }
-
-  function makeRequest() {
-    return Promise.resolve(new Date().getTime());
-  }
-
-  async function exec() {
-    console.log("### Exercise 2 ###");
-    await fetch("/user");
-    await fetch("/user/123");
-    await fetch("/user");
-    console.log("");
-  }
-
-  await exec();
+    return makeRequests();
+  })();
 
   // ### Exercise 3 ###
 
   console.log("### Exercise 3 ###");
+
   const fruits = [
     { id: 1, name: "Mango", tax: 10, price: 100 },
     { id: 2, name: "Apple", tax: 10, price: 200 },
@@ -65,12 +73,10 @@ async function main() {
     { id: 7, name: "Kiwi", tax: 5, price: 700 },
     { id: 8, name: "Pear", tax: 10, price: 800 },
   ];
-
   const customers = [
     { id: 1, name: "Carlos" },
     { id: 2, name: "Julian" },
   ];
-
   const sales = [
     {
       customer: 2,
@@ -103,7 +109,17 @@ async function main() {
 
   console.log("a.", aExercise());
 
-  function bExercise() {
+  function bExercise(option) {
+    if (option === "reduce") {
+      return fruits.reduce((result, fruit) => {
+        if ("tax" in fruit) {
+          return [...result, fruit.name];
+        }
+
+        return result;
+      }, []);
+    }
+
     return fruits
       .filter((fruit) => {
         return "tax" in fruit;
@@ -113,7 +129,14 @@ async function main() {
       });
   }
 
-  console.log("b.", bExercise());
+  console.log(
+    "b.",
+    "using reduce:",
+    bExercise("reduce"),
+    "|",
+    "using filter & map:",
+    bExercise("filter-map")
+  );
 
   function cExercise() {
     return fruits.map((fruit) => {
@@ -124,15 +147,17 @@ async function main() {
   console.log("c.", cExercise());
 
   function dExercise() {
-    const ids = {};
+    const ids = new Set();
 
     sales.forEach((sale) => {
       sale.products.forEach((product) => {
-        ids[product.fruit] = product.fruit;
+        ids.add(product.fruit);
       });
     });
 
-    return Object.keys(ids);
+    return [...ids].map((fruitId) => {
+      return getFruit(fruitId);
+    });
   }
 
   console.log("d.", dExercise());
@@ -141,21 +166,20 @@ async function main() {
     const customersSales = {};
 
     sales.forEach((sale) => {
-      let total = 0;
-
-      if (customersSales[sale.customer] === undefined) {
+      if (!(sale.customer in customersSales)) {
         customersSales[sale.customer] = {
-          customerId: sale.customer,
+          customer: getCustomer(sale.customer),
           sales: 0,
         };
       }
 
-      sale.products.forEach((product) => {
-        const productDetails = getFruit(product.fruit);
-        total += productDetails.price * product.quantity;
-      });
-
-      customersSales[sale.customer].sales += total;
+      customersSales[sale.customer].sales += sale.products.reduce(
+        (result, product) => {
+          const productDetails = getFruit(product.fruit);
+          return result + productDetails.price * product.quantity;
+        },
+        0
+      );
     });
 
     return Object.values(customersSales);
@@ -163,6 +187,10 @@ async function main() {
 
   function getFruit(fruitId) {
     return fruits.find((fruit) => fruit.id === fruitId);
+  }
+
+  function getCustomer(customerId) {
+    return customers.find((customer) => customer.id === customerId);
   }
 
   console.log("e.", eExercise());
@@ -196,11 +224,7 @@ async function main() {
 
   function lastExercise(value) {
     return Object.values(value).reduce((result, value) => {
-      if (typeof value === "number") {
-        return result + value;
-      } else {
-        return result + lastExercise(value);
-      }
+      return result + (typeof value === "number" ? value : lastExercise(value));
     }, 0);
   }
 
