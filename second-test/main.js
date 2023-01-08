@@ -1,5 +1,3 @@
-// Archivo original de la prueba
-
 function findMissing(input) {
   let missing = 0;
 
