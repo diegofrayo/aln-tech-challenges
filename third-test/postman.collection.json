@@ -1,0 +1,164 @@
+{
+  "info": {
+    "_postman_id": "cee138c0-899d-4213-92c8-7a4194bcd958",
+    "name": "Demo",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "2180589"
+  },
+  "item": [
+    {
+      "name": "fruits",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{FRUITS_API_URL}}/fruits?withVendors=true",
+          "host": ["{{FRUITS_API_URL}}"],
+          "path": ["fruits"],
+          "query": [
+            {
+              "key": "withVendors",
+              "value": "true"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "fruit by id",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{FRUITS_API_URL}}/fruits/4a36d1d1-19ee-4c56-b53c-ce71dca23e65",
+          "host": ["{{FRUITS_API_URL}}"],
+          "path": ["fruits", "4a36d1d1-19ee-4c56-b53c-ce71dca23e65"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "post",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"orange\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{FRUITS_API_URL}}/fruits",
+          "host": ["{{FRUITS_API_URL}}"],
+          "path": ["fruits"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "update",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"pineapple\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{FRUITS_API_URL}}/fruits/d5a6d73d-33d9-438c-b992-6b5b6ea291a2",
+          "host": ["{{FRUITS_API_URL}}"],
+          "path": ["fruits", "d5a6d73d-33d9-438c-b992-6b5b6ea291a2"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "delete",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"mora\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{FRUITS_API_URL}}/fruits/d5a6d73d-33d9-438c-b992-6b5b6ea291a2",
+          "host": ["{{FRUITS_API_URL}}"],
+          "path": ["fruits", "d5a6d73d-33d9-438c-b992-6b5b6ea291a2"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "vendors",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-customer-key",
+            "value": "X3FWMYtoTAAfa9keS4c2hVUiWmW4fwli",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"fruitName\": \"lemon\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{VENDORS_API_URL}}/vendors",
+          "path": ["vendors"],
+          "host": ["{{VENDORS_API_URL}}"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "FRUITS_API_URL",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "VENDORS_API_URL",
+      "value": "http://localhost:4000",
+      "type": "string"
+    }
+  ]
+}

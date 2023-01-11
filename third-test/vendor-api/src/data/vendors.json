@@ -1,0 +1,45 @@
+{
+  "fruits-providers": {
+    "orange": [1, 6],
+    "lemon": [1, 2, 3, 4, 5, 6],
+    "mango": [2, 3],
+    "kiwi": [2],
+    "avocado": [5]
+  },
+  "providers": [
+    {
+      "id": 1,
+      "name": "Exito"
+    },
+    {
+      "id": 2,
+      "name": "Carulla"
+    },
+    {
+      "id": 3,
+      "name": "Superinter"
+    },
+    {
+      "id": 4,
+      "name": "Olimpica"
+    },
+    {
+      "id": 5,
+      "name": "ARA"
+    },
+    {
+      "id": 6,
+      "name": "D1"
+    }
+  ],
+  "api-customers": {
+    "X3FWMYtoTAAfa9keS4c2hVUiWmW4fwli": {
+      "client": "store X",
+      "enabled": true
+    },
+    "aiQ5ft8ykAljD7l6NanrVL2CHs7Bv0dY": {
+      "client": "store Z",
+      "enabled": true
+    }
+  }
+}
