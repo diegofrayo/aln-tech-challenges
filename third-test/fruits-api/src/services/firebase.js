@@ -8,47 +8,43 @@ const {
   update: firebaseUpdate,
 } = require("firebase/database");
 
-const firebaseConfig = {
+const FIREBASE_CONFIG = {
   apiKey: "AIzaSyCPW7jEptuJ32LjYBFQCBX2UuZC9g2qOok",
   authDomain: "dfr-tests.firebaseapp.com",
   databaseURL: "https://dfr-tests-default-rtdb.firebaseio.com",
   projectId: "dfr-tests",
 };
-
-const app = initializeApp(firebaseConfig);
+const app = initializeApp(FIREBASE_CONFIG);
 const database = getDatabase(app);
+const BASE_PATH = "test";
 
 function get(path) {
   const dbRef = ref(database);
 
-  return firebaseGet(child(dbRef, `test/${path}`))
-    .then((snapshot) => {
-      if (snapshot.exists()) {
-        return snapshot.val();
-      }
+  return firebaseGet(child(dbRef, `${BASE_PATH}/${path}`)).then((snapshot) => {
+    if (snapshot.exists()) {
+      return snapshot.val();
+    }
 
-      return null;
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+    return null;
+  });
 }
 
 function write(path, data) {
-  return set(ref(database, `test/${path}`), data);
-}
-
-function remove(path) {
-  return set(ref(database, `test/${path}`), null);
+  return set(ref(database, `${BASE_PATH}/${path}`), data);
 }
 
 function update(path, updates) {
-  return firebaseUpdate(ref(database, `test/${path}`), updates);
+  return firebaseUpdate(ref(database, `${BASE_PATH}/${path}`), updates);
+}
+
+function remove(path) {
+  return write(path, null);
 }
 
 module.exports = {
   get,
-  remove,
-  update,
   write,
+  update,
+  remove,
 };
