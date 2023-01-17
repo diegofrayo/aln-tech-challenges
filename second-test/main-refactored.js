@@ -1,5 +1,3 @@
-// Codigo refactorizado para mi uso personal, no para que sea evaluado
-
 async function main() {
   // ### Exercise 1 ###
 
@@ -15,7 +13,7 @@ async function main() {
     return total2 - total1;
 
     /*
-    // Another option
+    // Another solution
     let totalExpected = 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9;
     let totalFromInput = 0;
 
