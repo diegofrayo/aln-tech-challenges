@@ -25,11 +25,11 @@ export function AppContext({ children }: { children: React.ReactNode }) {
     if (fruits.length === 1) {
       alert("There should exist at least one element....");
     } else {
-      setFruits((currentState) => {
-        return currentState.filter((fruit) => {
+      setFruits(
+        fruits.filter((fruit) => {
           return fruit !== fruitToDelete;
-        });
-      });
+        })
+      );
     }
   }
 
